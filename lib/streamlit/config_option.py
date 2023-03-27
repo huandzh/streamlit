@@ -140,7 +140,7 @@ class ConfigOption:
         type_ : one of str, int, float or bool
             Useful to cast the config params sent by cmd option parameter.
         sensitive: bool
-            sensitive configuration options cannot be set by CLI parameter.
+            Sensitive configuration options cannot be set by CLI parameter.
         """
         # Parse out the section and name.
         self.key = key

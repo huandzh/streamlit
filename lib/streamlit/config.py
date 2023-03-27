@@ -59,7 +59,7 @@ _USER_DEFINED = "<user defined>"
 # or via command-line flag.
 _DEFINED_BY_FLAG = "command-line argument or environment variable"
 
-# Indicates that a config option was defined either in an environment variable
+# Indicates that a config option was defined in an environment variable
 _DEFINED_BY_ENV_VAR = "environment variable"
 
 

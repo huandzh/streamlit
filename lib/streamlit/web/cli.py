@@ -59,7 +59,7 @@ def _convert_config_option_to_click_option(
 
 
 def _make_sensitive_option_callback(config_option: ConfigOption):
-    def callback(ctx: click.Context, param: click.Parameter, cli_value) -> None:
+    def callback(_ctx: click.Context, _param: click.Parameter, cli_value) -> None:
         if cli_value is None:
             return None
         raise SystemExit(
@@ -77,7 +77,7 @@ def configurator_options(func):
         parsed_parameter = _convert_config_option_to_click_option(value)
         if value.sensitive:
             # Display a warning if the user tries to set sensitive
-            # options using the CLI.
+            # options using the CLI and exit with non-zero code.
             click_option_kwargs = {
                 "expose_value": False,
                 "hidden": True,
