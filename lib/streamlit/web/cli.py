@@ -49,14 +49,13 @@ def _convert_config_option_to_click_option(
         description += (
             f"\n {config_option.deprecation_text} - {config_option.expiration_date}"
         )
-    envvar = f"STREAMLIT_{to_snake_case(param).upper()}"
 
     return {
         "param": param,
         "description": description,
         "type": config_option.type,
         "option": option,
-        "envvar": envvar,
+        "envvar": config_option.env_var,
     }
 
 
@@ -64,6 +63,9 @@ def configurator_options(func):
     """Decorator that adds config param keys to click dynamically."""
     for _, value in reversed(_config._config_options_template.items()):
         parsed_parameter = _convert_config_option_to_click_option(value)
+        # Skip config options that cannot be set by the CLI
+        if value.sensitive:
+            continue
         config_option = click.option(
             parsed_parameter["option"],
             parsed_parameter["param"],
