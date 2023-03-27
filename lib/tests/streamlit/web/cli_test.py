@@ -187,8 +187,8 @@ class CliTest(unittest.TestCase):
                 cli, ["run", "file_name.py", f"--{sensitive_option}=TESTSECRET"]
             )
 
-        self.assertIn("No such option:", result.output)
-        self.assertEqual(2, result.exit_code)
+        self.assertIn("option using the CLI flag is not allowed", result.output)
+        self.assertEqual(1, result.exit_code)
 
     def test_get_command_line(self):
         """Test that _get_command_line_as_string correctly concatenates values

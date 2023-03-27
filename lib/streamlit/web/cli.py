@@ -58,20 +58,41 @@ def _convert_config_option_to_click_option(
     }
 
 
+def _make_sensitive_option_callback(config_option: ConfigOption):
+    def callback(ctx: click.Context, param: click.Parameter, cli_value) -> None:
+        raise SystemExit(
+            f"Setting {config_option.key!r} option using the CLI flag is not allowed. "
+            f"Set this option in the configuration file or environment "
+            f"variable: {config_option.env_var!r}"
+        )
+
+    return callback
+
+
 def configurator_options(func):
     """Decorator that adds config param keys to click dynamically."""
     for _, value in reversed(_config._config_options_template.items()):
         parsed_parameter = _convert_config_option_to_click_option(value)
-        # Skip config options that cannot be set by the CLI
         if value.sensitive:
-            continue
+            # Display a warning if the user tries to set sensitive
+            # options using the CLI.
+            click_option_kwargs = {
+                "expose_value": False,
+                "hidden": True,
+                "is_eager": True,
+                "callback": _make_sensitive_option_callback(value),
+            }
+        else:
+            click_option_kwargs = {
+                "show_envvar": True,
+                "envvar": parsed_parameter["envvar"],
+            }
         config_option = click.option(
             parsed_parameter["option"],
             parsed_parameter["param"],
             help=parsed_parameter["description"],
             type=parsed_parameter["type"],
-            show_envvar=True,
-            envvar=parsed_parameter["envvar"],
+            **click_option_kwargs,
         )
         func = config_option(func)
     return func
