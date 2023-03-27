@@ -178,7 +178,7 @@ class CliTest(unittest.TestCase):
         self.assertEqual(kwargs["flag_options"]["server_port"], 8502)
         self.assertEqual(0, result.exit_code)
 
-    @parameterized.expand(["mapbox.toke", "server.cookieSecret"])
+    @parameterized.expand(["mapbox.token", "server.cookieSecret"])
     def test_run_command_with_sensitive_options_as_flag(self, sensitive_option):
         with patch("validators.url", return_value=False), patch(
             "streamlit.web.cli._main_run"
