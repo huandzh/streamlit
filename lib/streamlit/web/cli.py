@@ -60,6 +60,8 @@ def _convert_config_option_to_click_option(
 
 def _make_sensitive_option_callback(config_option: ConfigOption):
     def callback(ctx: click.Context, param: click.Parameter, cli_value) -> None:
+        if cli_value is None:
+            return None
         raise SystemExit(
             f"Setting {config_option.key!r} option using the CLI flag is not allowed. "
             f"Set this option in the configuration file or environment "
