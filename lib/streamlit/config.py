@@ -1000,8 +1000,12 @@ def _set_option(key: str, value: Any, where_defined: str) -> None:
         _config_options[key].set_value(value, where_defined)
 
 
-def _update_config_with_sensitive_env_var():
-    for opt_name, opt_val in _config_options.items():
+def _update_config_with_sensitive_env_var(config_options: Dict[str, ConfigOption]):
+    """Update the config system by parsing the environment variable.
+
+    This should only be called from get_config_options.
+    """
+    for opt_name, opt_val in config_options.items():
         if not opt_val.sensitive:
             continue
         env_var_value = os.environ.get(opt_val.env_var)
@@ -1147,7 +1151,7 @@ def get_config_options(
 
             _update_config_with_toml(file_contents, filename)
 
-        _update_config_with_sensitive_env_var()
+        _update_config_with_sensitive_env_var(_config_options)
 
         for opt_name, opt_val in options_from_flags.items():
             _set_option(opt_name, opt_val, _DEFINED_BY_FLAG)

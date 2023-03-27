@@ -24,7 +24,6 @@ import streamlit.runtime.caching as caching
 import streamlit.runtime.legacy_caching as legacy_caching
 import streamlit.web.bootstrap as bootstrap
 from streamlit import config as _config
-from streamlit.case_converters import to_snake_case
 from streamlit.config_option import ConfigOption
 from streamlit.runtime.credentials import Credentials, check_credentials
 from streamlit.web.cache_storage_manager_config import (
