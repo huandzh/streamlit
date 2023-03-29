@@ -424,6 +424,7 @@ const RawElementNodeRenderer = (
             element={buttonProto}
             width={width}
             hasInProgressUpload={hasInProgressUpload}
+            closeModal={props.closeModal}
             {...widgetProps}
           />
         )

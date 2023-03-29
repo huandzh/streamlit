@@ -23,17 +23,26 @@ import UIButton, {
 } from "src/components/shared/Button"
 import { WidgetStateManager } from "src/lib/WidgetStateManager"
 import StreamlitMarkdown from "src/components/shared/StreamlitMarkdown/index"
+import { StyledModalCloseButtonWrapper } from "src/components/widgets/Form/styled-components"
 
 export interface Props {
   disabled: boolean
   element: ButtonProto
   hasInProgressUpload: boolean
+  closeModal?: any
   widgetMgr: WidgetStateManager
   width: number
 }
 
 export function FormSubmitButton(props: Props): ReactElement {
-  const { disabled, element, widgetMgr, hasInProgressUpload, width } = props
+  const {
+    disabled,
+    element,
+    widgetMgr,
+    hasInProgressUpload,
+    width,
+    closeModal,
+  } = props
   const { formId } = element
   const style = { width }
   const kind =
@@ -58,7 +67,10 @@ export function FormSubmitButton(props: Props): ReactElement {
           size={Size.SMALL}
           fluidWidth={element.useContainerWidth || false}
           disabled={disabled || hasInProgressUpload}
-          onClick={() => widgetMgr.submitForm(element)}
+          onClick={() => {
+            widgetMgr.submitForm(element)
+            closeModal()
+          }}
         >
           <StreamlitMarkdown
             source={element.label}
