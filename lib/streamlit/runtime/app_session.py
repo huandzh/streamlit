@@ -20,6 +20,7 @@ from typing import TYPE_CHECKING, Callable, Dict, List, Optional, Union
 import streamlit.elements.exception as exception_utils
 from streamlit import config, runtime, source_util
 from streamlit.case_converters import to_snake_case
+from streamlit.commands.execution_control import rerun
 from streamlit.logger import get_logger
 from streamlit.proto.BackMsg_pb2 import BackMsg
 from streamlit.proto.ClientState_pb2 import ClientState
@@ -731,6 +732,7 @@ class AppSession:
         # empty open_modal_id should effectively close the modal
         msg = create_update_open_modal_id_modal_event(open_modal_id="")
         self._enqueue_forward_msg(msg)
+        # rerun()
 
     def _handle_set_run_on_save_request(self, new_value: bool) -> None:
         """Change our run_on_save flag to the given value.

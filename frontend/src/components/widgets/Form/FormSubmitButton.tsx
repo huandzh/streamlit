@@ -67,10 +67,11 @@ export function FormSubmitButton(props: Props): ReactElement {
           size={Size.SMALL}
           fluidWidth={element.useContainerWidth || false}
           disabled={disabled || hasInProgressUpload}
-          onClick={() => {
-            widgetMgr.submitForm(element)
-            closeModal()
-          }}
+          onClick={closeModal}
+          //() => {
+          //widgetMgr.submitForm(element)
+          //closeModal()
+          //}}
         >
           <StreamlitMarkdown
             source={element.label}
