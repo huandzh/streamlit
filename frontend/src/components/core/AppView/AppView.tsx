@@ -32,7 +32,6 @@ import {
   StyledAppViewBlockContainer,
   StyledAppViewContainer,
   StyledAppViewFooter,
-  StyledAppViewFooterLink,
   StyledAppViewMain,
   StyledIFrameResizerAnchor,
   StyledAppViewBlockSpacer,
@@ -171,12 +170,7 @@ function AppView(props: AppViewProps): ReactElement {
         bottom of the page in larger views */}
         {(!embedded || showFooter) && <StyledAppViewBlockSpacer />}
         {(!embedded || showFooter) && (
-          <StyledAppViewFooter isWideMode={wideMode}>
-            Made with{" "}
-            <StyledAppViewFooterLink href="//streamlit.io" target="_blank">
-              Streamlit
-            </StyledAppViewFooterLink>
-          </StyledAppViewFooter>
+          <StyledAppViewFooter isWideMode={wideMode}>Demo</StyledAppViewFooter>
         )}
       </StyledAppViewMain>
     </StyledAppViewContainer>
