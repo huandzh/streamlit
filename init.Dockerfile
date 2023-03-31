@@ -10,7 +10,6 @@ RUN export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.
 
 COPY . /app
 
-
 RUN export NVM_DIR="$HOME/.nvm" && \. "$NVM_DIR/nvm.sh" && corepack enable && make init
 
 # RUN make frontend

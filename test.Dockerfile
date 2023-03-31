@@ -1,4 +1,4 @@
-FROM streamlit:install311
+FROM dhuan/streamlit:install311
     MAINTAINER Huan Di <huandzh@gmail.com>
 
 RUN rm -rf /app/
